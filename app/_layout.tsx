@@ -5,6 +5,14 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
+// Redux
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer from '../redux/reducers';
+import rootSaga from '../redux/sagas';
+
+// Components
 import { useColorScheme } from '@/components/useColorScheme';
 
 export {
@@ -14,11 +22,20 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'tabs',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware),
+});
+
+sagaMiddleware.run(rootSaga);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -49,10 +66,12 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
+      <Provider store={store}>
+        <Stack>
+          <Stack.Screen name="tabs" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </Provider>
     </ThemeProvider>
   );
 }
