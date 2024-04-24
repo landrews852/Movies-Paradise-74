@@ -1,0 +1,8 @@
+.jest
+android
+assets
+_bundle
+coverage
+ios
+**/.git
+**/node_modules
