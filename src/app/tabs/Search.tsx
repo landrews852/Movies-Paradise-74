@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TextInput, Button, StyleSheet } from 'react-native';
-import { View } from '@/components/Themed';
+import { View } from '@/src/components/Themed';
 import { useDispatch } from 'react-redux';
-import { searchMovieRequest } from '@/redux/actions';
+import { searchMovieRequest } from '@/src/redux/actions';
 
 type SearchMovieRequestAction = {
   type: string;

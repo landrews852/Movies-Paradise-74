@@ -7,13 +7,10 @@ import { useEffect } from 'react';
 
 // Redux
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import createSagaMiddleware from 'redux-saga';
-import rootReducer from '../redux/reducers';
-import rootSaga from '../redux/sagas';
+import store from '@/src/redux/store';
 
 // Components
-import { useColorScheme } from '@/components/useColorScheme';
+import { useColorScheme } from '@/src/components/useColorScheme';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -27,15 +24,6 @@ export const unstable_settings = {
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware),
-});
-
-sagaMiddleware.run(rootSaga);
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({

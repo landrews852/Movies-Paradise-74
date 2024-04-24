@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, Pressable, StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { Text, View } from '@/src/components/Themed';
 import { Link } from 'expo-router';
 
 const FavoriteScreen = () => {

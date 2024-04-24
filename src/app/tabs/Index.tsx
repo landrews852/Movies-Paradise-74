@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { Text, View } from '@/src/components/Themed';
+import { Link } from 'expo-router';
 
 export default function WelcomeScreen() {
   return (
     <View style={styles.container}>
-      <Image source={require('@/assets/images/logo.jpeg')} style={styles.logo} />
+      <Image source={require('@assets/images/logo.jpeg')} style={styles.logo} />
       <Text style={styles.title}>Bienvenido a Movies Paradise 74</Text>
-      <Text style={styles.subtitle}>¡Encuentra todas tus películas favoritas en un solo lugar!</Text>
+      <Text style={styles.subtitle}>¡Encuentra todas tus películas favoritas en un solo lugar! <Link href='/tabs/Search'>Haz click aquí para empezar tu búsqueda!</Link></Text>
     </View>
   );
 }
