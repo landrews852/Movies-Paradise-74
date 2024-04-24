@@ -9,7 +9,8 @@ export default function WelcomeScreen() {
     <View style={styles.container}>
       <Image source={require('@assets/images/logo.jpeg')} style={styles.logo} />
       <Text style={styles.title}>Bienvenido a Movies Paradise 74</Text>
-      <Text style={styles.subtitle}>¡Encuentra todas tus películas favoritas en un solo lugar! <Link href='/tabs/Search'>Haz click aquí para empezar tu búsqueda!</Link></Text>
+      <Text style={styles.subtitle}>¡Encuentra todas tus películas favoritas en un solo lugar!</Text>
+      <Link style={{ marginVertical: 40, color: '#2e78b7' }} href='/tabs/Search'>{'>> '}¡Haz click aquí para empezar tu búsqueda!{' <<'}</Link>
     </View>
   );
 }
