@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import axios from "axios";
-import SearchScreen from "@/src/app/tabs/Search.tsx";
+import SearchScreen from "@/src/app/tabs/Search";
 
 jest.mock("axios");
 

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { TextInput, Button, StyleSheet, Image, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import { Text, View } from '@/src/components/Themed';
 import { useDispatch } from 'react-redux';
-import { searchMovieById, searchMovieRequest } from '@/src/redux/actions';
+import { searchMovieRequest } from '@/src/redux/actions';
 import { useSelector } from 'react-redux';
 import { Movie, MovieState } from '@/src/redux/reducers';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,6 +20,11 @@ type State = {
   }
 };
 
+type AddFavorite = {
+  id: string;
+  Title: string;
+}
+
 const SearchScreen: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   const { results, loading, error } = useSelector((state: any) => state.movie);
@@ -31,8 +36,8 @@ const SearchScreen: React.FC = () => {
     }
   }
 
-  const handleAddFavorite = (item: Movie) => {
-    dispatch({ type: 'ADD_FAVORITE', payload: item });
+  const handleAddFavorite = ({id, Title}: AddFavorite) => {
+    dispatch({ type: 'ADD_FAVORITE', payload: { id, Title } });
   }
 
   return (
@@ -54,7 +59,7 @@ const SearchScreen: React.FC = () => {
                 <Link
                   href={{
                     pathname: "/modal",
-                    params: { id: movie.id, title: movie.title },
+                    params: { id: movie.id },
                   }}
                   asChild
                   key={movie.id}
@@ -65,7 +70,7 @@ const SearchScreen: React.FC = () => {
                     <Text style={styles.title}>{movie.title}</Text>
                     <Text style={styles.text}>{movie.year}</Text>
                     <Text style={styles.text}>{movie.type}</Text>
-                    <TouchableOpacity onPress={() => handleAddFavorite(movie)} style={styles.addFavorite}>
+                    <TouchableOpacity onPress={() => handleAddFavorite({id: movie.id, Title: movie.title})} style={styles.addFavorite}>
                       <Ionicons name="heart" size={18} color="white" />
                     </TouchableOpacity >
                   </Pressable>
